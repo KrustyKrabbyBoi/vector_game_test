@@ -25,33 +25,31 @@
 #define START1 (input2 & 0x20)
 #define START2 (input2 & 0x40)
 
+
+void draw_pad(const int p[]) {
+  CNTR();//center
+  SCAL(0x7f);//scale
+  STAT(GREEN, 0);//vector properties
+  VCTR(p[0], p[1], 0);//put vector
+  JSRL(0x800);//draw at addr
+}
+
 static int frame = 0;
 
 void main(void) {
   int r = 512;
-  int y = -10;
-  int x = 10;
+  byte pad0[] = {0, 0, 0};
   dvgclear();
   dvgwrofs = 0x200;
   draw_string("W", 0);
   RTSL();
+  
+  
   while (1) {
     dvgreset();
-    if (UP1) {
-      y++;
-    }
-    if (DOWN1) {
-      y--;
-    }
-    if (LEFT1) {
-      x--;
-    }
-    if (RIGHT1) {
-      x++;
-    }
     
     STAT(YELLOW, 0);//set color and stuff
-    VCTR(x, y, 0);//set vector
+    VCTR(0, 0, 0);//set vector
     JSRL(0x200);//draw
     HALT();//stop
     dvgstart();
