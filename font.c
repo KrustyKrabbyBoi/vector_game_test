@@ -31,8 +31,10 @@ void draw_pad(const int p[]) {
   SCAL(0x7f);//scale
   STAT(GREEN, 0);//vector properties
   VCTR(p[0], p[1], 0);//put vector
-  JSRL(0x800);//draw at addr
+  JSRL(0x400);//draw at addr
 }
+
+
 
 static int frame = 0;
 
@@ -51,6 +53,8 @@ void main(void) {
     STAT(YELLOW, 0);//set color and stuff
     VCTR(0, 0, 0);//set vector
     JSRL(0x200);//draw
+    
+    
     HALT();//stop
     dvgstart();
     frame++;
